@@ -11,7 +11,7 @@ mass = 30       # grams     - total mass
 mass_rotatable  # grams     - mass of each rotating mass
 
 
-def simulate_timestep(s, dt, x_axis=True):
+def simulate_timestep(s, dt):
     # Calculate CG and moment of inertia
     cg = find_cg(s['up_angle'], s['servo']);
     mi = find_mi(s['up_angle'], s['servo']);
@@ -33,8 +33,34 @@ def simulate_timestep(s, dt, x_axis=True):
     return s
 
 def find_cg(angle, servo_angle):
-    return (0,0) # TODO: This is not correct
+    points = []
+    # point 1 - main arm
+    x = arm_cg * math.sin(angle)
+    y = arm_cg * math.cos(angle)
+    points += [(x,y,arm_mass)]
+    # point 2 - rotatable mass
+    x = x - (mass_length_cg * math.cos(angle + servo_angle))
+    y = y + (mass_length_cg * math.sin(angle + servo_angle))
+    points += [(x,y,rotatable_mass)]
+    return mi_point_masses(points)
 
 def find_mi(angle, servo_angle):
     return (0,0) # TODO: This is not correct
 
+# Moment of Inertia Helper Functions
+
+arm_length      = .05   # meters - Total length of the arm from the rotor to
+                        #          the pivot point
+arm_cg          = .03   # meters - Distance along the arm from the rotor to
+                        #          the CG
+arm_mass        = 20    # grams  - Total mass of main arm including servos
+mass_length_cg  = .01   # meters - The length from the servo to the CG of the
+                        #          rotating mass
+
+def mi_point_masses(points):
+    mi = 0.0
+    for pt in points:
+        # calculate the radius squared
+        r = pt[0]*pt[0] + pt[1]*pt[1]
+        mi += r * pt[2] # moment of inertia contribution = m*r^2
+    return mi
