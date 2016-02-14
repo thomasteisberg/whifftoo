@@ -11,7 +11,7 @@ class WhiffWorld():
     def __init__(self, dt):
         self.dt = dt
         self.state_dim_names = ['up_angle', 'up_angle_vel', 'up_angle_acc',
-                                'servo', 'cgx', 'cgy', 'mix', 'miy']
+                                'servo', 'cgx', 'cgy', 'mi']
         self.possible_actions = ['move -0.01', 'move 0', 'move 0.01']
         self.state = self.s0()
 
