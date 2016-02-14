@@ -8,8 +8,7 @@ ex_state = {'up_angle': math.pi / 8,    # angle of the pendulum from vertical
             'servo': math.pi / 16,      # servo angle 
             'cgx': 0,
             'cgy': 0,
-            'mix': 0,
-            'miy': 0
+            'mi': 0
            }
 
 def simulate_timestep(s, dt):
@@ -29,8 +28,7 @@ def simulate_timestep(s, dt):
     s['up_angle_acc'] = rot_acc
     s['cgx'] = cg[0]
     s['cgy'] = cg[1]
-    s['mix'] = mi[0]
-    s['miy'] = mi[1]
+    s['mi'] = mi
 
     return s
 
