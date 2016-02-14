@@ -17,11 +17,14 @@ def simulate_timestep(s, dt):
     mi = find_mi(s['up_angle'], s['servo']);
     
     # Calculate rotational acceleration and integrate for velocity and angle
-    torque = mass * cg[1]
+    torque = mass * cg[0]
     rot_acc = torque * mi
     rot_vel = (rot_acc * dt) + s['up_angle_vel']
     rot     = (rot_vel * dt) + s['up_angle']
-    
+
+    cg = find_cg(rot, s['servo']);
+    mi = find_mi(rot, s['servo']);
+
     # update state dictionary
     s['up_angle'] = rot
     s['up_angle_vel'] = rot_vel
@@ -41,13 +44,13 @@ def find_cg(angle, servo_angle):
     # point 0 - mass at rotor
     mass_list.append(scalar([0, 0], mass_rotor))
     # point 1 - mass in arm
-    mass_list.append(scalar(scalar(servo_pos, 0.5), mass_arm))
+    mass_list.append(scalar(scalar(servo_pos, arm_cg/arm_length), mass_arm))
     # point 2 - mass in servo block 
     mass_list.append(scalar(servo_pos, mass_servo))
     # point 3 - mass in rotational block
     mass_list.append(scalar(
-            [servo_pos[0] - (mass_length_cg * math.cos(angle - servo_angle)), \
-             servo_pos[1] - (mass_length_cg * math.sin(angle - servo_angle))], \
+            [servo_pos[0] + (mass_length_cg * math.cos(angle_from_rotor - servo_angle)), \
+             servo_pos[1] + (mass_length_cg * math.sin(angle_from_rotor - servo_angle))], \
             mass_rotatable))
 
     return scalar(reduce(lambda x,y: [x[0]+y[0], x[1]+y[1]], mass_list), 1/mass) 
