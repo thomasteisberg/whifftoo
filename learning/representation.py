@@ -2,18 +2,26 @@ import numpy as np
 
 class LinearApproximation():
 
-    def __init__(self):
-        pass
+    def __init__(self, domain):
+        self.domain = domain
 
     def get_features(self, state, action):
         # temporary: just appends state and action vectors (with a bias term)
         bias = np.array([1])
-        return bias+state+action
+        vector = np.concatenate((bias, state, action))
+        return vector
 
     def get_Q_value(self, state, action, weights):
         # returns Q value of (state,action) by taking dot 
         # product with weight vector
-        sa = self.get_features(state, action)
+        possible_actions = self.domain.possible_actions
+        action_vector = np.array([0 for i in range(len(possible_actions))])
+        action_vector[possible_actions.index(action)] += 1
+
+        print state
+        print action_vector
+        print weights
+        sa = self.get_features(state, action_vector)
         return np.dot(sa, weights)
 
     def bestAction(self, state, possible_actions, weights):
