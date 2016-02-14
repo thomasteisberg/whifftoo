@@ -30,7 +30,7 @@ def run(num_episodes = 10, dt = 0.01):
                 reward = -0.1
             # update the rewards
             whiff.learn(state, action, reward, next_state, possible_actions)
-            # print whiff.weights
+            print action
 
         print count
         lifetimes.append(count)

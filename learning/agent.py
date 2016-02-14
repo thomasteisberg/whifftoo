@@ -1,7 +1,7 @@
 import numpy as np
 import sys
-sys.path.append("../simulation")
-import visualize
+# sys.path.append("../simulation")
+# import visualize
 
 class QLearner():
 
@@ -21,10 +21,10 @@ class QLearner():
   def learn(self, state, action, reward, next_state, possible_actions):
 
     # draw state
-    print "start draw"
-    disp_state = {'up_angle': state[0], 'up_angle_vel': state[1], 'up_angle_acc': state[2], 'servo': state[3], 'cgx': state[4], 'cgy': state[5], 'mi': state[6]}
-    visualize.display_configuration(disp_state); 
-    print "end draw"
+    # print "start draw"
+    # disp_state = {'up_angle': state[0], 'up_angle_vel': state[1], 'up_angle_acc': state[2], 'servo': state[3], 'cgx': state[4], 'cgy': state[5], 'mi': state[6]}
+    # visualize.display_configuration(disp_state); 
+    # print "end draw"
 
     # w <-- w + learning_rate * (reward + discount_rate * max[Q(s', a')] - Q(s,a)) * (gradient of Q(s,a) wrt weights)
     # gradient of Q(s,a) wrt weights is (state, action) pair representation

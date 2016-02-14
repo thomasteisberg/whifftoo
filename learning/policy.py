@@ -4,7 +4,7 @@ class eGreedy():
     ## chooses greedy action (i.e. action with maximum Q-value)
     ## with probability (1-epsilon). Otherwise chooses uniformly
     ## random action for exploration.
-    def __init__(self, representation, epsilon = 0.1, seed = 2):
+    def __init__(self, representation, epsilon = 0.3, seed = 2):
         self.epsilon = epsilon
         self.old_epsilon = epsilon
         self.representation = representation
