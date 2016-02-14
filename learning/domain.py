@@ -1,6 +1,7 @@
 from __future__ import division
 import numpy as np
 import math
+import random
 
 import sys
 sys.path.append("../simulation")
@@ -19,7 +20,11 @@ class WhiffWorld():
         self.state = self.s0()
 
     def s0(self):
-        initial_state = np.array([0.5 for i in range(len(self.state_dim_names))])
+        initial_state = np.array([random.uniform(-math.pi/6, math.pi/6), \
+                                  random.uniform(-0.08, 0.08), \
+                                  random.uniform(-0.02, 0.02), \
+                                  random.uniform(-math.pi/2, math.pi/2), \
+                                  0, 0,  0])
         return initial_state
 
     def step(self, state, action):
@@ -44,7 +49,10 @@ class WhiffWorld():
     def is_terminal(self, state):
         # state is terminal when copter is tilted more than 60 degrees
         shaft_angle = state[0]
+        servo_angle = state[3]
+
+        if abs(servo_angle) > 1.56: return True
         # print shaft_angle
-        if abs(shaft_angle) > 1.05:
+        if abs(shaft_angle) > 0.78:
             return True
         return False
