@@ -1,5 +1,6 @@
 from __future__ import division
 import math
+from constants import *
 
 ex_state = {'up_angle': math.pi / 8,    # angle of the pendulum from vertical
             'up_angle_vel' : 0,         # angular velocity of the above
@@ -7,22 +8,6 @@ ex_state = {'up_angle': math.pi / 8,    # angle of the pendulum from vertical
             'servo': math.pi / 16,      # servo angle 
             'rotor_pos': (0,0)          # rotor position in plane (ground ref.)
            }
-
-dt             = 0.001    # seconds
-mass_rotatable = 2        # grams - mass of each rotating mass
-mass_rotor     = 30       # grams - mass of the rotor assembly
-mass_servo     = 20       # grams - mass of the servo assembly
-mass_arm       = 1        # grams  - Total mass of main arm including servos
-mass           = mass_rotor + mass_servo + mass_rotatable + mass_arm # grams - total mass
-
-# Moment of Inertia constants (TODO: reconcile with constants above)
-arm_length      = .05   # meters - Total length of the arm from the rotor to
-                        #          the pivot point
-arm_cg          = .03   # meters - Distance along the arm from the rotor to
-                        #          the CG
-mass_length_cg  = .01   # meters - The length from the servo to the CG of the
-                        #          rotating mass
-arm_mass = mass - mass_rotatable # grams  - Total mass of main arm including servos
 
 def simulate_timestep(s, dt):
     # Calculate CG and moment of inertia
