@@ -6,7 +6,8 @@ ex_state = {'up_angle': math.pi / 8,    # angle of the pendulum from vertical
             'up_angle_vel' : 0,         # angular velocity of the above
             'up_angle_acc' : 0,         # angular acceleration of the above
             'servo': math.pi / 16,      # servo angle 
-            'rotor_pos': (0,0)          # rotor position in plane (ground ref.)
+            'cg': [0,0],
+            'mi': [0,0]
            }
 
 def simulate_timestep(s, dt):
