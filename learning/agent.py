@@ -1,4 +1,5 @@
 import numpy as np
+import visualize
 
 class QLearner():
 
@@ -16,6 +17,10 @@ class QLearner():
     return self.policy.get_best_action(state, possible_actions, self.weights)
   
   def learn(self, state, action, reward, next_state, possible_actions):
+
+    # draw state
+    visualize.display_configuration(state); 
+
     # w <-- w + learning_rate * (reward + discount_rate * max[Q(s', a')] - Q(s,a)) * (gradient of Q(s,a) wrt weights)
     # gradient of Q(s,a) wrt weights is (state, action) pair representation
     max_Q_s_prime_a_prime = self.representation.get_Q_value(next_state, self.future_action(state, possible_actions), self.weights)
