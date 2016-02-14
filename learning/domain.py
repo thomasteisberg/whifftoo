@@ -19,10 +19,11 @@ class WhiffWorld():
         self.state = self.s0()
 
     def s0(self):
-        initial_state = np.array([0 for i in range(len(self.state_dim_names))])
+        initial_state = np.array([0.5 for i in range(len(self.state_dim_names))])
         return initial_state
 
     def step(self, state, action):
+        # print action
         # returns next state given the action
         action_map = {0: -0.01, 1: 0, 2: 0.01}
         state[3] += action_map[action.index(1)]
@@ -36,11 +37,14 @@ class WhiffWorld():
         next_state = []
         for name in self.state_dim_names:
             next_state.append(next_state_dictionary[name])
+
+        self.state = next_state
         return next_state
 
     def is_terminal(self, state):
         # state is terminal when copter is tilted more than 60 degrees
         shaft_angle = state[0]
-        if abs(shaft_angle) > ():
+        # print shaft_angle
+        if abs(shaft_angle) > 1.05:
             return True
         return False

@@ -2,14 +2,18 @@ import agent
 import domain
 import policy
 import representation
+import matplotlib.pyplot as plt
 
-def run(num_episodes = 500, dt = 0.01):
+def run(num_episodes = 10, dt = 0.01):
     whiff_world = domain.WhiffWorld(dt)
     whiff_rep = representation.LinearApproximation(whiff_world)
     whiff_policy = policy.eGreedy(whiff_rep)
     whiff = agent.QLearner(whiff_policy, whiff_rep)
+    lifetimes = []
     for episode in range(num_episodes):
+        count = 0
         while not whiff_world.is_terminal(whiff_world.state):
+            count += 1
             state = whiff_world.state
             possible_actions = whiff_world.possible_actions
 
@@ -20,14 +24,21 @@ def run(num_episodes = 500, dt = 0.01):
             next_state = whiff_world.step(state, action)
             if whiff_world.is_terminal(next_state):
                 reward = -10
+            elif count%500 == 0:
+                reward = 60
             else:
-                reward = 0
+                reward = -0.1
             # update the rewards
             whiff.learn(state, action, reward, next_state, possible_actions)
-            print whiff.weights
+            # print whiff.weights
 
+        print count
+        lifetimes.append(count)
         whiff_world.reinitialize()
 
+    print lifetimes
+    plt.plot(lifetimes)
+    plt.show()
 
 if __name__ == '__main__':
     run()

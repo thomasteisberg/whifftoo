@@ -2,7 +2,7 @@ import numpy as np
 
 class QLearner():
 
-  def __init__(self, policy, representation, discount_rate = 0.8, learning_rate = 0.05, seed = 1):
+  def __init__(self, policy, representation, discount_rate = 0.8, learning_rate = 0.01, seed = 2):
     self.representation = representation
     self.policy = policy
     self.discount_rate = discount_rate
