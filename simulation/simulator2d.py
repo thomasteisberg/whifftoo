@@ -65,7 +65,7 @@ def find_mi(angle, servo_angle):
     # point 2 - rotatable mass
     x = x - (mass_length_cg * math.cos(angle + servo_angle))
     y = y + (mass_length_cg * math.sin(angle + servo_angle))
-    points += [(x,y,rotatable_mass)]
+    points += [(x,y,mass_rotatable)]
     return mi_point_masses(points)
 
 

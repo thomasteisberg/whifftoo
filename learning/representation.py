@@ -18,9 +18,6 @@ class LinearApproximation():
         action_vector = np.array([0 for i in range(len(possible_actions))])
         action_vector[possible_actions.index(action)] += 1
 
-        print state
-        print action_vector
-        print weights
         sa = self.get_features(state, action_vector)
         return np.dot(sa, weights)
 

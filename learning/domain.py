@@ -11,7 +11,7 @@ class WhiffWorld():
     def __init__(self, dt):
         self.dt = dt
         self.state_dim_names = ['up_angle', 'up_angle_vel', 'up_angle_acc',
-                                'servo_angle', 'cg_x', 'cg_y', 'mi_x', 'mi_y']
+                                'servo', 'cgx', 'cgy', 'mix', 'miy']
         self.possible_actions = ['move -0.01', 'move 0', 'move 0.01']
         self.state = self.s0()
 
@@ -26,7 +26,14 @@ class WhiffWorld():
         # returns next state given the action
         action_map = {0: -0.01, 1: 0, 2: 0.01}
         state[3] += action_map[action.index(1)]
-        next_state = simulator2d.simulate_timestep(state, self.dt)
+
+        state_dictionary = {}
+
+        for state_name, state_element in zip(self.state_dim_names, state):
+            state_dictionary[state_name] = state_element
+        next_state = simulator2d.simulate_timestep(state_dictionary, self.dt)
+        print next_state
+        quit()
         return next_state
 
     def is_terminal(self, state):
