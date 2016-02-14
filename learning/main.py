@@ -23,7 +23,8 @@ def run(num_episodes = 500, dt = 0.01):
             else:
                 reward = 0
             # update the rewards
-            whiff.learn(state, action, reward, next_state, is_terminal)
+            whiff.learn(state, action, reward, next_state, possible_actions)
+            print whiff.weights
 
         whiff_world.reinitialize()
 

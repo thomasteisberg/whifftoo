@@ -13,13 +13,13 @@ class QLearner():
   
   def future_action(self, state, possible_actions):
     # Q learner chooses optimal action
-    return self.policy.get_best_action(state, possible_actions)
+    return self.policy.get_best_action(state, possible_actions, self.weights)
   
-  def learn(state, action, reward, next_state, possible_actions, is_terminal):
+  def learn(self, state, action, reward, next_state, possible_actions):
     # w <-- w + learning_rate * (reward + discount_rate * max[Q(s', a')] - Q(s,a)) * (gradient of Q(s,a) wrt weights)
     # gradient of Q(s,a) wrt weights is (state, action) pair representation
-    max_Q_s_prime_a_prime = representation.get_Q_value(next_state, self.future_action(state, possible_actions), weights)
-    Q_s_a = representation.get_Q_value(state, action, weights)
-    state_action_feature_vector = representation.get_features(state, action)
-    new_weights = self.weights + (learning_rate * (reward + discount_rate * max_Q_prime_a_prime - Q_s_a)) * state_action_feature_vector
+    max_Q_s_prime_a_prime = self.representation.get_Q_value(next_state, self.future_action(state, possible_actions), self.weights)
+    Q_s_a = self.representation.get_Q_value(state, action, self.weights)
+    state_action_feature_vector = self.representation.get_features(state, action)
+    new_weights = self.weights + (self.learning_rate * (reward + self.discount_rate * max_Q_s_prime_a_prime - Q_s_a)) * state_action_feature_vector
     self.weights = new_weights
