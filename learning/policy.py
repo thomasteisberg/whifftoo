@@ -14,7 +14,7 @@ class eGreedy():
         random_draw = self.random_state.rand()
         # explore: pick random action
         if random_draw < self.epsilon:
-            action_index = self.random_state.choice(possible_actions)
+            action_index = possible_actions.index(self.random_state.choice(possible_actions))
             action = [0 for i in possible_actions]
             action[action_index] += 1
             return action

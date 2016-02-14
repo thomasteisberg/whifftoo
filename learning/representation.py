@@ -14,10 +14,12 @@ class LinearApproximation():
     def get_Q_value(self, state, action, weights):
         # returns Q value of (state,action) by taking dot 
         # product with weight vector
-        possible_actions = self.domain.possible_actions
-        action_vector = np.array([0 for i in range(len(possible_actions))])
-        action_vector[possible_actions.index(action)] += 1
-
+        if not isinstance(action, list):
+            possible_actions = self.domain.possible_actions
+            action_vector = np.array([0 for i in range(len(possible_actions))])
+            action_vector[possible_actions.index(action)] += 1
+        else:
+            action_vector = action
         sa = self.get_features(state, action_vector)
         return np.dot(sa, weights)
 

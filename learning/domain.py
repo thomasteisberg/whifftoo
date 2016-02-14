@@ -31,9 +31,11 @@ class WhiffWorld():
 
         for state_name, state_element in zip(self.state_dim_names, state):
             state_dictionary[state_name] = state_element
-        next_state = simulator2d.simulate_timestep(state_dictionary, self.dt)
-        print next_state
-        quit()
+        next_state_dictionary = simulator2d.simulate_timestep(state_dictionary, self.dt)
+
+        next_state = []
+        for name in self.state_dim_names:
+            next_state.append(next_state_dictionary[name])
         return next_state
 
     def is_terminal(self, state):
