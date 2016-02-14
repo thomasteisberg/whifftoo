@@ -10,19 +10,19 @@ class eGreedy():
         self.representation = representation
         self.random_state = np.random.RandomState(seed=seed)
 
-    def pi(self, state, possible_actions):
+    def pi(self, state, possible_actions, weights):
         random_draw = self.random_state.rand()
         # explore: pick random action
-        if coin < self.epsilon:
+        if random_draw < self.epsilon:
             action_index = self.random_state.choice(possible_actions)
             action = [0 for i in possible_actions]
             action[action_index] += 1
             return action
         # else exploit: pick greedy action
-        return self.get_best_action(state, possible_actions)
+        return self.get_best_action(state, possible_actions, weights)
 
-    def get_best_action(self, state, possible_actions):
-        best_action_index = self.representation.bestAction(state, possible_actions)
+    def get_best_action(self, state, possible_actions, weights):
+        best_action_index = self.representation.bestAction(state, possible_actions, weights)
         action = [0 for i in possible_actions]
         action[best_action_index] += 1
         return action
