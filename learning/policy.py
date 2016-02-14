@@ -4,11 +4,11 @@ class eGreedy():
     ## chooses greedy action (i.e. action with maximum Q-value)
     ## with probability (1-epsilon). Otherwise chooses uniformly
     ## random action for exploration.
-    def __init__(self, representation, epsilon = 0.1, seed = 2):
+    def __init__(self, representation, epsilon = 0.1, seed = 42):
         self.epsilon = epsilon
         self.old_epsilon = epsilon
         self.representation = representation
-        self.random_state = np.random.RandomState(seed=seed)
+        self.random_state = np.random.RandomState()
 
     def pi(self, state, possible_actions, weights):
         random_draw = self.random_state.rand()
