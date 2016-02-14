@@ -13,8 +13,8 @@ mass_rotatable  # grams     - mass of each rotating mass
 
 def simulate_timestep(s, dt, x_axis=True):
     # Calculate CG and moment of inertia
-    cg = find_cg(s['up_angle'], s['servo_x']]);
-    mi = find_mi(s['up_angle'], s['servo_x'], s['servo_y']);
+    cg = find_cg(s['up_angle'], s['servo']);
+    mi = find_mi(s['up_angle'], s['servo']);
         
     
     # Calculate rotational acceleration and integrate for velocity and angle
@@ -32,5 +32,9 @@ def simulate_timestep(s, dt, x_axis=True):
 
     return s
 
-def find_cg(angle, servo_x, servo_y):
+def find_cg(angle, servo_angle):
+    return (0,0) # TODO: This is not correct
+
+def find_mi(angle, servo_angle):
+    return (0,0) # TODO: This is not correct
 
