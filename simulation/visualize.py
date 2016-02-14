@@ -59,14 +59,14 @@ def display_configuration(state):
 # test!
 screen.fill(black)
 
-while s['up_angle'] >= -math.pi/2:
-    while s['servo'] >= -math.pi/2:
-        display_configuration(s)
-        s['servo'] -= math.pi/16
-    s['servo'] = math.pi/2
-    s['up_angle'] -= math.pi/128
-
+direction = 1
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
              pygame.quit(); sys.exit();
+
+    display_configuration(s)
+    s['servo'] -= direction * math.pi/128
+    s['up_angle'] -= direction * math.pi/128
+    if s['servo'] <= -math.pi/2 or s['servo'] >= math.pi/2: direction *= -1
+
