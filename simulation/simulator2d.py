@@ -32,8 +32,8 @@ def simulate_timestep(s, dt):
 
 def find_cg(angle, servo_angle):
 
-    angle_from_rotor = -math.pi/2 + angle 
-    servo_pos = [arm_length * math.cos(angle_from_rotor), arm_length * math.sin(angle_from_rotor)]
+    angle_from_rotor = ((3*math.pi)/2) - angle 
+    servo_pos = [arm_length * math.sin(angle_from_rotor), arm_length * math.cos(angle_from_rotor)]
 
     mass_list = []
     # point 0 - mass at rotor
@@ -44,8 +44,8 @@ def find_cg(angle, servo_angle):
     mass_list.append(scalar(servo_pos, mass_servo))
     # point 3 - mass in rotational block
     mass_list.append(scalar(
-            [servo_pos[0] - (mass_length_cg * math.sin(angle + servo_angle)), \
-             servo_pos[1] - (mass_length_cg * math.cos(angle + servo_angle))], \
+            [servo_pos[0] - (mass_length_cg * math.cos(angle - servo_angle)), \
+             servo_pos[1] - (mass_length_cg * math.sin(angle - servo_angle))], \
             mass_rotatable))
 
     return scalar(reduce(lambda x,y: [x[0]+y[0], x[1]+y[1]], mass_list), 1/mass) 
